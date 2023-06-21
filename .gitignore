@@ -1,0 +1,8 @@
+.env
+.idea
+
+data
+_data
+build
+dumps
+node_modules
