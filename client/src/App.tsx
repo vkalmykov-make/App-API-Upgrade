@@ -1,11 +1,16 @@
-import './App.css';
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+import { AppComparer } from './screens/appcomparer';
+
 
 // console.log(obj);
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppComparer />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
