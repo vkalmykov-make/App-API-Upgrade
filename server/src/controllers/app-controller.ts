@@ -99,8 +99,7 @@ export class AppController {
       {
         $group: {
           _id: { name: "$name" },
-          created: { $first: "$created" },
-          value: { $push: "$value" }
+          value: { $first: "$value" }
         }
       }
     ])
