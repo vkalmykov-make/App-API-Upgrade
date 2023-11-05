@@ -1,48 +1,63 @@
-import dotenv from "dotenv";
-import express, { Express, Request, Response } from "express";
-import path from "path";
-import cors from "cors";
-import http from "http";
-const yaml = require('js-yaml');
-const fs = require('fs');
+import mongoose from "mongoose";
+import server from "./src/server";
 
-dotenv.config();
+(async () => {
+  const dbPort = process.env.DB_PORT || 27017;
+  const dbHost = process.env.DB_HOST || "localhost";
+  const dbName = process.env.DB_NAME || "integromat";
 
-const instance: Express = express();
+  await mongoose
+    .connect(`mongodb://${dbHost}:${dbPort}`, {
+      dbName,
+      ignoreUndefined: true,
+      user: process.env.DB_USER,
+      pass: process.env.DB_PASS,
+    })
+    .then((instance) =>
+      console.info(
+        `The database has been connected on port ${instance.connection.port}`
+      )
+    )
+    .catch(() =>
+      console.error(
+        `Database connection has failed, the connection: ${JSON.stringify({
+          port: dbPort,
+          host: dbHost,
+          user: process.env.DB_USER,
+        })}`
+      )
+    );
 
-instance.use(express.json());
-instance.use(cors());
+  const port = parseInt(process.env.PORT || "8080");
 
-instance.get('/', (req: Request, res: Response) => {
-  res.send('Hello World From the Typescript Server!')
-});
+  server.on("error", (err: NodeJS.ErrnoException) => {
+    if (err.syscall !== "listen") {
+      throw err;
+    }
 
-const port = process.env.PORT || 8000;
+    const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-instance.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-});
+    switch (err.code) {
+      case "EACCES":
+        console.error(bind + " requires elevated privileges");
+        process.exit(1);
+      case "EADDRINUSE":
+        console.error(bind + " is already in use");
+        process.exit(1);
+      default:
+        throw err;
+    }
+  });
 
+  server.on("listening", () => {
+    const addr = server.address();
+    const bind =
+      typeof addr === "string" ? "pipe " + addr : "port " + addr?.port;
 
-try {
-  const doc = yaml.load(fs.readFileSync('src/data/openapi.yaml', 'utf8'));
-  // console.log(doc);
-  const jsonData = JSON.stringify(doc);
-  console.log(jsonData);
-  fs.writeFileSync('src/data/input_file.json', jsonData, 'utf8');
-} catch (e) {
-  console.log(e);
-}
+    console.info(`The server has been started and listening on ${bind}`);
+  });
 
-// Read the Yaml file
-//const data = fs.readFileSync('src/data/openapi.yaml', 'utf8');
-
-//Convert Yml object to JSON
-//const yamlData = yaml.load(data);
-
-//Write JSON to Yml
-//const jsonData = JSON.stringify(yamlData);
-// fs.writeFileSync('src/data/input_file.json', jsonData, 'utf8');
-
+  server.listen(port);
+})();
 
 

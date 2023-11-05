@@ -9,13 +9,14 @@ import {
 import { PostmanModel, isFolderType, Item } from "../models/postman";
 import postmanToOutput from "../helpers/postmanToOutput";
 import { IResult } from "../models/result";
+import { useFetcher } from "../helpers/fetch";
 
 
 
 export const AppComparer = () => {
   const [input, setInput] = React.useState<string>("");
   const [output, setOutput] = React.useState<IResult[]>([]);
-
+  const [data, setData] = React.useState<any[] | null>(null);
 
   const handleCollection = () => {
     if (!input) return setOutput([]);
@@ -27,6 +28,15 @@ export const AppComparer = () => {
       console.log(e);
     }
   }
+
+  useFetcher({
+    config: {
+      method: "GET",
+      url: `/activecampaign/1/comparer`,
+    },
+    onSuccess: (data) => setData(data),
+    onError: () => null
+  });
 
   return (
     <Box p={2}>
@@ -66,7 +76,14 @@ export const AppComparer = () => {
           variant="outlined"
           color="secondary"
           onClick={handleCollection}
-        >Parse collection</Button>
+        >Parse collection
+        </Button>
+        {/* <Button
+          variant="outlined"
+          color="secondary"
+          onClick={FetchModules}
+        >Get modules
+        </Button> */}
       </Stack>
     </Box>
   );
