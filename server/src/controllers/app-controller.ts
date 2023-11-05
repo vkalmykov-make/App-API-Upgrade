@@ -89,16 +89,20 @@ export class AppController {
   static getChanges = async (query: GetAppChangesQuery) => {
     const { table, name, version } = query;
 
-    return CommitModel.find(
+    return CommitModel.aggregate([
       {
-        $and: [{ app_name: name }, { table }, { app_version: parseInt(version as string) }],
+        $match: { $and: [{ app_name: name }, { table: "module" }, { column: "api" }, { app_version: parseInt(version as string) }] }
       },
-      {},
       {
-        sort: {
-          created: -1,
-        },
+        $sort: { created: -1 }
+      },
+      {
+        $group: {
+          _id: { name: "$name" },
+          created: { $first: "$created" },
+          value: { $push: "$value" }
+        }
       }
-    );
+    ])
   }
 }

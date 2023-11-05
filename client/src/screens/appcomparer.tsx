@@ -34,7 +34,10 @@ export const AppComparer = () => {
       method: "GET",
       url: `/activecampaign/1/comparer`,
     },
-    onSuccess: (data) => setData(data),
+    onSuccess: (data) => {
+      setData(data);
+      console.log(data)
+    },
     onError: () => null
   });
 
