@@ -1,0 +1,13 @@
+.env
+
+build
+dumps
+node_modules
+
+apps.json
+hsitory.json
+
+db.sync.js
+image.build.js
+
+README.md

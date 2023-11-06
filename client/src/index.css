@@ -1,0 +1,85 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  scrollbar-width: thin !important;
+}
+
+.split {
+  display: flex;
+  flex-direction: row;
+}
+
+.gutter {
+  background-color: #eee;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+  cursor: col-resize;
+}
+
+/* MUI  */
+
+.MuiBox-root,
+.MuiList-root {
+  outline: none !important;
+}
+
+/* MUI DataGrid */
+
+.MuiDataGrid-root .MuiDataGrid-cell,
+.MuiDataGrid-root .MuiDataGrid-columnHeader {
+  outline: none !important;
+}
+
+.MuiDataGrid-columnHeaderTitleContainerContent {
+  width: 100% !important;
+}
+
+.MuiDataGrid-root .MuiDataGrid-columnHeaderCheckbox .MuiDataGrid-columnHeaderTitleContainer {
+  display: none;
+}
+
+/* Monaco */
+
+.monaco-scrollable-element .scrollbar {
+  width: 8px !important;
+}
+
+.monaco-editor .slider {
+  margin: 0;
+}
+
+/* Make */
+
+.make-button {
+  background: radial-gradient(100.03% 140.18% at 0% 85.53%, #ff00ff 0%, #724ebf 95.31%);
+}
+
+input:-webkit-autofill {
+  -webkit-background-clip: text;
+}
