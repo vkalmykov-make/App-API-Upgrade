@@ -4,7 +4,6 @@
 
 Purpose of this app is to simplify manual review/update processes by using postman collection format.
 
-
 Concept document is [here](https://docs.google.com/document/d/1aD6y_n-BmZHYsJJdulv3J-fQunYvyjZuFztxuYOo0mY/edit)
 
 ### Env variables
@@ -19,8 +18,6 @@ DB_PORT=27017 <br>
 Step 1. Install dependencies
 
     npm install
-     cd client && npm install
-     cd server && npm install
      
 Step 2. Install TypeScript globally
 
@@ -34,3 +31,9 @@ Step 4. Run client and sever at same time
 
     npm run start:client
     npm run start:server
+
+### Database
+Set up a MongoDB Docker container <br>
+Use these files to upload [commits](https://integromat.slack.com/files/U021GHF119D/F0636BYM6Q6/commits.json) and [apps](https://integromat.slack.com/files/U021GHF119D/F063CU8M7GB/apps.json)
+
+
